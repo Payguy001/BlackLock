@@ -38,45 +38,45 @@ def BLhelp():
 
     """
 
-def Tata(SeqFileName, minlen = 0, maxlen = 0, minPhred=0, barcode='a', totalb='a', seq_search=''):
-    saving_status = saving_dialog()
+# def Tata(SeqFileName, minlen = 0, maxlen = 0, minPhred=0, barcode='a', totalb='a', seq_search=''):
+#     saving_status = saving_dialog()
 
-    fastqFile = SeqFileName
-    data_ready = file2fq(fastqFile)
-    # print('[STATUS]: File is prepared in .fastq extension form')
-    gi = fq2dict(data_ready)
-    print('[STATUS]: Dictionary of the data is created')
+#     fastqFile = SeqFileName
+#     data_ready = file2fq(fastqFile)
+#     # print('[STATUS]: File is prepared in .fastq extension form')
+#     gi = fq2dict(data_ready)
+#     print('[STATUS]: Dictionary of the data is created')
 
-    #filter
-    jj = filter_BL(gi, minlen, maxlen, minPhred, barcode, totalb, seq_search)
-    print('[STATUS]: Filtered dictionary created... begin reading...')
-    dict_BL_read(jj)
+#     #filter
+#     jj = filter_BL(gi, minlen, maxlen, minPhred, barcode, totalb, seq_search)
+#     print('[STATUS]: Filtered dictionary created... begin reading...')
+#     dict_BL_read(jj)
 
-    #Save file
-    sav = input("Would you like to save filtered data? [Y/n] : ")
-    if(sav != 'n'):
-        while True:
+#     #Save file
+#     sav = input("Would you like to save filtered data? [Y/n] : ")
+#     if(sav != 'n'):
+#         while True:
             
-            ty = input("Please put in filename with extention : ")
-            ex = f2ext(ty)
-            if ex=='folder':
-                print('[WARNING]: Please add extension (.fastq,.gz)')
-            else:
-                break
+#             ty = input("Please put in filename with extention : ")
+#             ex = f2ext(ty)
+#             if ex=='folder':
+#                 print('[WARNING]: Please add extension (.fastq,.gz)')
+#             else:
+#                 break
             
-        if ex=='fastq': #.fastq
-            dict_BL2fq(jj, ty[:-5]+'.fastq') #เขียน filter
-        if ex=='gz':
-            if f2ext(ty[:-3]) != 'fastq': #.fastq.gz
-                dict_BL2fq(jj, ty[:-3]+'.fastq')
-                fq2gz(ty[:-3]+'.fastq') #เปลี่ยนเป็น gz
-            else: #.gz
-                dict_BL2fq(jj, ty[:-3])
-                fq2gz(ty[:-3])
-        print("[STATUS]: File is saved as "+ty)
-    else:   print("[STATUS]: File is not saved")
+#         if ex=='fastq': #.fastq
+#             dict_BL2fq(jj, ty[:-5]+'.fastq') #เขียน filter
+#         if ex=='gz':
+#             if f2ext(ty[:-3]) != 'fastq': #.fastq.gz
+#                 dict_BL2fq(jj, ty[:-3]+'.fastq')
+#                 fq2gz(ty[:-3]+'.fastq') #เปลี่ยนเป็น gz
+#             else: #.gz
+#                 dict_BL2fq(jj, ty[:-3])
+#                 fq2gz(ty[:-3])
+#         print("[STATUS]: File is saved as "+ty)
+#     else:   print("[STATUS]: File is not saved")
     
-    print("\n++++++++++++++++++\nBLACKLOCK THANK YOU\n++++++++++++++++++\n")
+#     print("\n++++++++++++++++++\nBLACKLOCK THANK YOU\n++++++++++++++++++\n")
     
 def Tata2(SeqFileName, minlen = 0, maxlen = 0, minPhred=0, barcode='a', totalb='a', seq_search=''):
 
@@ -90,7 +90,7 @@ def Tata2(SeqFileName, minlen = 0, maxlen = 0, minPhred=0, barcode='a', totalb='
     print("\n++++++++++++++++++\nBLACKLOCK THANK YOU\n++++++++++++++++++\n")
 
 
-def ult_filter(filename, minlen=0, maxlen='a', minPhred=0, barcode='a', totalb='a', seq_search='',save_file=''):
+def ult_filter(filename, minlen=0, maxlen=0, minPhred=0, barcode='a', totalb='a', seq_search='',save_file=''):
     
     ext_d = re.compile(r'barcode=\S+',re.M)
     
@@ -234,6 +234,7 @@ def ult_filter(filename, minlen=0, maxlen='a', minPhred=0, barcode='a', totalb='
     print('\n______End_of_mini_report______')
     print('Barcode',ttr_bar)
 
+
 def saving_dialog():
     out = ""
     sav = input("Would you like to save filtered data? [Y/n] : ")
@@ -300,10 +301,11 @@ def Omsin(SeqFileName):
         lendict[r_bar].append(r_len)
         qsc[r_bar].append(r_mean)
 
-    print("[STATUS]: Dictionary is creaeted successfully")
+    print("[STATUS]: Dictionary is created successfully")
     #ค่า Heading Row ของ Table
     Heading = ["Barcode", "Number of seq", "Average length", "Average QScore", "Density (%)"]
     Row = [["001", "002"], [1000, 500], [500, 250], [100, 200], [50, 40], [0.5,0.4]]
+    
     Row = inputtable(lendict, qsc)
 
     #สร้าง script
