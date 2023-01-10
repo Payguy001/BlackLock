@@ -1,4 +1,4 @@
-#BlackLock
+# BlackLock
 Visualize and Filter DNA sequence
 
 Compatible sequence file type: `.fastq` and `.gz`
@@ -7,14 +7,14 @@ Run `BlackLock` file to start
 ```
 python BlackLock -h
 ```
-##Visualize DNA Sequence
+## Visualize DNA Sequence
 Use `VisualizeSeq` to generate HTML file for visualizing data 
 
 Example:
 ```
 python BlackLock VisualizeSeq -f FILENAME
 ```
-##Filter DNA Sequence
+## Filter DNA Sequence
 Use FilterSeq to generate filtered FASTQ file
 
 **Example:**
