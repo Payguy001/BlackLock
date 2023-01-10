@@ -2,6 +2,7 @@
 Visualize and Filter DNA sequence
 
 Compatible sequence file type: `.fastq` and `.gz`
+**The sequence file must be in the same folder with BlackLock file**
 
 Run `BlackLock` file to start
 
