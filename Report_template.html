@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Blacklock report</title>
+    <link rel="icon" type="image/x-icon" href="https://uxwing.com/wp-content/themes/uxwing/download/banking-finance/generate-report-icon.png">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style type="text/css">
+        body {font-family: 'Trebuchet MS', sans-serif;}
+        h1 {font-size: 200%;
+        text-align: center;
+        margin: 30px;}
+        p {margin-left: 40px;
+        margin-right:40px;
+        }
+        h2 {margin: 30px;
+        text-align: center;
+        }
+        hr {margin-left: 20px;
+        margin-right: 20px;
+        }
+        li {margin-left: 30px;}
+        .centerImage {
+        margin-left: auto;
+        margin-right: auto;
+        display:block;
+        }
+        a {text-decoration: none;
+        color:black}
+        .tf {
+    		position: fixed;
+    		top: 0;
+    		left: 50%;
+    		transform: translateX(-50%);
+		z-index: 99 !important;
+    	}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+    <div class="columns">
+    <div class="column col-9 col-mx-auto">
+
+    <h1>Report Summary</h1>
+    <p>This report analyzed from <b>"filename"</b></p>
+    <ul>
+        <b><div style="font-size: 130%;">Content</div></b>
+        <li><a href="#section1">Length VS Count (Histogram)</a></li>
+        <li><a href="#section2">QScore VS Count (Histogram)</a></li>
+        <li><a href="#section4">Barcode summary (Table)</a></li>
+    </ul>
+    <hr>
+
+    <h2 id="section1">Length VS Count</h2>
+    <p>The  histogram illustrates relation between length interval of each sequence and the number of sequence in that interval</p>
+    histo1
+    <hr>
+
+    <h2 id="section2">QScore VS Count</h2>
+    <p>The  histogram illustrates relation between Average QScore interval of each sequence and the number of sequence in that interval</p>
+    histo2
+    <hr>
+
+    <h2 id="section4">Barcode individual summary</h2>
+    <ul>
+        <div style="font-size: 120%;">This table illustrate 5 interesting statistics in each barcode</div>
+        <li>Number of seq: a total number of sequences in each barcode</li>
+        <li>Passed : a total number of sequences in each barcode that passed the criteria</li>
+        <li>Average length: Average length of sequences in each barcode</li>
+        <li>Average QScore: Average Quality score of sequences in each barcode</li>
+        <li>Density: Proportion of each barcode in total sequences</li>
+
+    </ul>    
+    visualize4
+    <hr>
+    
+</div></div>
+</body>
+
+</html>
