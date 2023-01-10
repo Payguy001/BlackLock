@@ -162,7 +162,7 @@ def ult_filter(filename, minlen=0, maxlen='a', minPhred=0, barcode='a', totalb='
         #print('c3')
         if ttr_n%10000==0:
             print('[STATUS]: ',ttr_n,'records have been filtered')
-        if ttr_n> 100000*kkk:
+        if ttr_n> 30000*kkk:
             if save_file[0]!=0:
                 if save_file[0]==1:
                     print('[STATUS]: Saving... ',save_file[1][:-6]+str(kkk)+'.fastq')
@@ -267,22 +267,48 @@ def Omsin(SeqFileName):
     #     help(BLhelp)
     #     exit()
 
+    ext_d = re.compile(r'barcode=\S+',re.M)
+
     fastqFile = SeqFileName
 
     data_ready = file2fq(fastqFile)
     print('[STATUS]: File is prepared in .fastq extension form')
-    gi = fq2dict(data_ready)
+    # gi = fq2dict(data_ready)
     print('[STATUS]: Dictionary of the data is created')
 
+    lendict = dict()
+    qsc = dict()
+
+    for record in SeqIO.parse(fastqFile,'fastq'):
+        #print(record)
+        #Isagi[ID] = fastq_BL(record.id,record.id,record.seq,quality,barcode)
+        #self.name = name
+        r_seq = record.seq
+        r_len = len(r_seq)
+        r_qual = record.letter_annotations['phred_quality']
+        r_mean = sum(r_qual)/r_len
+        r_len = len(record.seq)
+        r_dis = record.description
+        for m in ext_d.finditer(r_dis):
+            r_bar = m.group(0)[8:]
+        
+        if r_bar not in lendict.keys():
+            lendict[r_bar] = []
+        if r_bar not in qsc.keys():
+            qsc[r_bar] = []
+        
+        lendict[r_bar].append(r_len)
+        qsc[r_bar].append(r_mean)
+
+    print("[STATUS]: Dictionary is creaeted successfully")
     #ค่า Heading Row ของ Table
     Heading = ["Barcode", "Number of seq", "Average length", "Average QScore", "Density (%)"]
     Row = [["001", "002"], [1000, 500], [500, 250], [100, 200], [50, 40], [0.5,0.4]]
-    lendict ,qsc = createdict(gi)
     Row = inputtable(lendict, qsc)
 
     #สร้าง script
     table4script = GenTableHTML("Table4",Heading,Row)
-    lenplotlist, qscplotlist = GeneratePlotObject(gi)
+    lenplotlist, qscplotlist = GeneratePlotObject(lendict, qsc)
     Histo1script = GenerateHistogramFromObject(Name = "Histo1", Header = "Length VS count", xlabel = "Length", BarcodeList = lenplotlist)
     Histo2script = GenerateHistogramFromObject(Name = "Histo2", Header = "QScore VS count", xlabel = "QScore", BarcodeList = qscplotlist)
     filename = str(fastqFile)
@@ -489,7 +515,7 @@ def dict_BL2fq(dict_BL, fq_out_name):
         l.append(dict_BL[i].raw)
     SeqIO.write(l, fq_out_name, "fastq")
     
-def fq2gz(fqfile,filename=''):
+def fq2gz2(fqfile,filename=''):
     if filename=='':
         filename=fqfile+'.gz'
     #a = fq2dict(fqfile)
@@ -499,6 +525,17 @@ def fq2gz(fqfile,filename=''):
     with open(fqfile, 'rb') as f_in:
             with gzip.open(filename, 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
+
+def fq2gz(fqfile,filename=''):
+    if filename=='':
+        filename=fqfile+'.gz'
+    file_input = open(fqfile, "rt")
+    records = SeqIO.parse(file_input, "fastq")
+    new_file = gzip.open(filename, "wt")
+    for record in records:
+        new_file.write(record.format("fastq"))
+    new_file.close()
+    file_input.close()
 
 def col_ext(dict_BL):
     id_lis=list()
@@ -578,8 +615,7 @@ def GenerateBinnedList(Xlist = [], nbins = 10):
         else: GenerateBinnedList(Xlist, len(Xlist))
     else: return Xlist, [1]
 
-def GeneratePlotObject(dict_BL):
-    lendict, qsc = createdict(dict_BL)
+def GeneratePlotObject(lendict, qsc):
     lenplotlist = []
     qscplotlist = []
     #print(lendict)
