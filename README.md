@@ -2,6 +2,7 @@
 Visualize and Filter DNA sequence
 
 Compatible sequence file type: `.fastq` and `.gz`
+
 Run `BlackLock` file to start
 
 ```
@@ -15,7 +16,7 @@ Example:
 python BlackLock VisualizeSeq -f FILENAME
 ```
 ## Filter DNA Sequence
-Use FilterSeq to generate filtered FASTQ file
+Use `FilterSeq` to generate filtered FASTQ file
 
 **Example:**
 ```
