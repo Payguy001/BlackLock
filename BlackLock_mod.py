@@ -85,7 +85,7 @@ def Tata2(SeqFileName, minlen = 0, maxlen = 0, minPhred=0, barcode='a', totalb='
     s = saving_dialog()
     print(type(s))
     #print('c1')
-    ult_filter(SeqFileName, minlen, maxlen, minPhred, barcode, totalb, seq_search,save_file=s)
+    ult_filter(data_ready, minlen, maxlen, minPhred, barcode, totalb, seq_search,save_file=s)
 
     print("\n++++++++++++++++++\nBLACKLOCK THANK YOU\n++++++++++++++++++\n")
 
@@ -280,7 +280,7 @@ def Omsin(SeqFileName):
     lendict = dict()
     qsc = dict()
 
-    for record in SeqIO.parse(fastqFile,'fastq'):
+    for record in SeqIO.parse(data_ready,'fastq'):
         #print(record)
         #Isagi[ID] = fastq_BL(record.id,record.id,record.seq,quality,barcode)
         #self.name = name
